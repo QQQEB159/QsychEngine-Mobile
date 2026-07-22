@@ -78,6 +78,7 @@ class TitleState extends MusicBeatState
 		{
 			ClientPrefs.loadPrefs();
 			Language.reloadPhrases();
+			MobileData.init();
 		}
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
