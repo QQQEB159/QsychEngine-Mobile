@@ -1,0 +1,14 @@
+Cwy::Cwy::Director::https://space.bilibili.com/3493119353948379::0xFF808080::120
+Baka::Baka::Main Programmer::https://www.bilibili.com/video/BV1rs41197Xn::0xFF00FFFF::240
+Icon-BF::icon-bf::Programming::https://space.bilibili.com/488017110::0xFF808080::180
+XJ-Akers::XJ-Akers::Painting::https://space.bilibili.com/1684262832::0xFF808080::120
+Star Fison::Star Fison::Composer::https://space.bilibili.com/515522141::0xFFFF00FF::140
+woofwolf::woofwolf::Painting::https://space.bilibili.com/514249942::0xFF808080::120
+Molly::Molly::Painting::https://space.bilibili.com/1936357692::0xFF808080::120
+tianyin::tianyin::Painting::https://space.bilibili.com/378052145::0xFF808080::120
+You ming::youming::Animation::https://space.bilibili.com/521936549::0xFF808080::140
+Lys_Chestnut::Lys_Chestnut::Composer::https://space.bilibili.com/1036534493::0xFF808080::140
+Qi-Mao-Qi::Qi-Mao-Qi::Composer::https://space.bilibili.com/3537111038822836::0xFF808080::140
+qqqeb::qqqeb::Mobile Pregramming::https://space.bilibili.com/383199942::0xFF808080::270
+NLDwD::NLand::Engine Codes Refactoring (Herobrine I like you)::https://space.bilibili.com/3546581211023835::0xFF42CBE4::620
+Tencent Channel::QQ::pd92981638::https://space.bilibili.com/383199942::0xFF0000FF::170

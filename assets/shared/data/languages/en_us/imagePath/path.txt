@@ -1,0 +1,2 @@
+credits::menu/english/credits
+menu_freeplay::menu/english/menu_freeplay
