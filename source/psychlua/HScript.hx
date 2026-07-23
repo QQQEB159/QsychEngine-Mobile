@@ -200,6 +200,7 @@ class HScript extends Iris
 			}
 			return false;
 		});
+		set('initScript', (scriptName:String) -> PlayState.instance.initHScript(Paths.getPath(scriptName)));
 		set('debugPrint', function(text:String, ?color:FlxColor = null) {
 			if(color == null) color = FlxColor.WHITE;
 			PlayState.instance.addTextToDebug(text, color);
