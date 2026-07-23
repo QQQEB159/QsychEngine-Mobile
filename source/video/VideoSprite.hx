@@ -1,4 +1,4 @@
-package objects;
+package video;
 
 import flixel.addons.display.FlxPieDial;
 
