@@ -3175,7 +3175,7 @@ class PlayState extends MusicBeatState
 				popUpScore(note);
 			}
 			var gainHealth:Bool = true; // prevent health gain, *if* sustains are treated as a singular note
-			if (guitarHeroSustains && note.isSustainNote) gainHealth = false;
+			//if (guitarHeroSustains && note.isSustainNote) gainHealth = false;
 			if (gainHealth) health += note.hitHealth * healthGain;
 
 		}
