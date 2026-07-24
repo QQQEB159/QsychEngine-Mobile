@@ -78,7 +78,6 @@ class TitleState extends MusicBeatState
 		{
 			ClientPrefs.loadPrefs();
 			Language.reloadPhrases();
-			MobileData.init();
 		}
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
@@ -92,6 +91,7 @@ class TitleState extends MusicBeatState
 			}
 			persistentUpdate = true;
 			persistentDraw = true;
+			MobileData.init();
 		}
 
 		if (FlxG.save.data.weekCompleted != null)
