@@ -682,7 +682,7 @@ class PlayState extends MusicBeatState
 			clickCount = 0;
 			if (currentNFS > maxNFS) maxNFS = currentNFS;
 			updateScoreText();
-			Paths.clearUnusedMemory();
+			//Paths.clearUnusedMemory();
     	}, 0);
 		Paths.clearUnusedMemory();
 
