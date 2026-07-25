@@ -34,7 +34,7 @@ class Paths
 			dumpExclusions.push(key);
 	}
 
-	public static var dumpExclusions:Array<String> = ['assets/shared/music/freakyMenu.$SOUND_EXT', 'assets/shared/mobile/touchpad/bg.png'];
+	public static var dumpExclusions:Array<String> = ['assets/shared/music/freakyMenu.$SOUND_EXT'];
 	// haya I love you for the base cache dump I took to the max
 	public static function clearUnusedMemory()
 	{
@@ -162,10 +162,10 @@ class Paths
 			if(FileSystem.exists(modded)) return modded;
 		}
 		#end
-		
+
 		if (parentfolder == "mobile")
 			return getSharedPath('mobile/$file');
-
+		
 		if (parentfolder != null)
 			return getFolderPath(file, parentfolder);
 
