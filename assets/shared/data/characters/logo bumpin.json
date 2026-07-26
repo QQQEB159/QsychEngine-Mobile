@@ -1,0 +1,23 @@
+{
+	"animations": [
+		{
+			"offsets": [0, 0],
+			"indices": [],
+			"fps": 15,
+			"anim": "idle",
+			"loop": false,
+			"name": "logo bumpin"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/logoBumpin",
+	"position": [30, 0],
+	"healthicon": "invisible",
+	"flip_x": false,
+	"healthbar_colors": [0, 0, 0],
+	"camera_position": [-180, 0],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": false
+}
