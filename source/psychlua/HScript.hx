@@ -86,7 +86,7 @@ class HScript extends IrisEx
 	#end
 
 	public var origin:String;
-	override public function new(?parent:Dynamic, ?file:String, ?varsToBring:Any = null, ?manualRun:Bool = false)
+	override public function new(?parent:Dynamic, ?file:String, ?varsToBring:Any = null, ?manualRun:Bool = false, ?sharables:Sharables)
 	{
 		if (file == null)
 			file = '';
