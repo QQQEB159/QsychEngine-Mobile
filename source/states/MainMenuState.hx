@@ -7,6 +7,7 @@ import lime.app.Application;
 import states.editors.MasterEditorMenu;
 import options.OptionsState;
 import oecodes.OeTools;
+import backend.Song;
 
 class MainMenuState extends MusicBeatState
 {
@@ -19,11 +20,12 @@ class MainMenuState extends MusicBeatState
 	var creditsButton:FlxSprite;
 	var magenta:FlxSprite;
 	var char:FlxSprite;
-	var charList:Array<String> = ['miku', 'teto'];
+	var charList:Array<String> = ['miku', 'teto', 'gf'];
 	var itemList:Array<FlxSprite> = [];
 	var mouse:FlxSprite;
 	var whiteBarUp:FlxSprite;
 	var whiteBarDown:FlxSprite;
+	var randomChar:String = '';
 	override function create()
 	{
 		super.create();
@@ -45,8 +47,6 @@ class MainMenuState extends MusicBeatState
 		bg.updateHitbox();
 		bg.screenCenter();
 		add(bg);
-		//bg.y -= 100;
-		//FlxTween.tween(bg, {y:0}, 0.8, {ease: FlxEase.quartOut});
 
 		magenta = new FlxSprite().loadGraphic(Paths.image('menu/menuBGMagenta', 'vocaloid'));
 		magenta.antialiasing = ClientPrefs.data.antialiasing;
@@ -56,7 +56,6 @@ class MainMenuState extends MusicBeatState
 		magenta.screenCenter();
 		magenta.visible = false;
 		add(magenta);
-		//magenta.y += 10;
 
 		fnfBar = new FlxSprite().loadGraphic(Paths.image('menu/FNFBG', 'vocaloid'));
 		fnfBar.antialiasing = ClientPrefs.data.antialiasing;
@@ -75,8 +74,6 @@ class MainMenuState extends MusicBeatState
 		engineButton.updateHitbox();
 		engineButton.antialiasing = ClientPrefs.data.antialiasing;
 		add(engineButton);
-		//engineButton.y -= 100;
-		//FlxTween.tween(engineButton, {y:-30}, 0.8, {ease: FlxEase.quartOut});
 
 		playButton = new FlxSprite(700, 180);
 		playButton.frames = Paths.getSparrowAtlas(OeTools.getLanguageImagePath('menu_freeplay', 'menu/play'), 'vocaloid');
@@ -110,39 +107,30 @@ class MainMenuState extends MusicBeatState
 		creditsButton.antialiasing = ClientPrefs.data.antialiasing;
 		add(creditsButton);
 
-		char = new FlxSprite(/*-300*/100, /*-300*/110).loadGraphic(Paths.image('menu/' + charList[FlxG.random.int(0, charList.length-1)], 'vocaloid'));
+		randomChar = charList[FlxG.random.int(0, charList.length-1)];
+
+		char = new FlxSprite(/*-300*/100, /*-300*/110).loadGraphic(Paths.image('menu/' + randomChar, 'vocaloid'));
 		char.antialiasing = ClientPrefs.data.antialiasing;
 		char.scale.x = 0.5;
 		char.scale.y = 0.5;
 		char.updateHitbox();
 		add(char);
-		//FlxTween.tween(char, {x:100, y:110}, 1, {ease: FlxEase.quartOut});
 
-		whiteBarUp = new FlxSprite(0, /*-770*/0).makeGraphic(FlxG.width, 50, FlxColor.WHITE);
+		if (randomChar == 'gf') char.y += 30;
+
+		whiteBarUp = new FlxSprite(0, 0).makeGraphic(FlxG.width, 50, FlxColor.WHITE);
 		whiteBarUp.screenCenter(X);
 		add(whiteBarUp);
 
-		whiteBarDown = new FlxSprite(0, /*-50*/0).makeGraphic(FlxG.width, 50, FlxColor.WHITE);
+		whiteBarDown = new FlxSprite(0, 0).makeGraphic(FlxG.width, 50, FlxColor.WHITE);
 		whiteBarDown.screenCenter(X);
 		add(whiteBarDown);
 		whiteBarDown.y = FlxG.height - whiteBarDown.height;
-
-		//FlxTween.tween(whiteBarUp, {y:0}, 1, {ease: FlxEase.quartOut});
-		//FlxTween.tween(whiteBarDown, {y:FlxG.height - whiteBarDown.height}, 1, {ease: FlxEase.quartOut});
 
 		mouse = new FlxSprite().loadGraphic(Paths.image('menu/cursor', 'vocaloid'));
 		mouse.antialiasing = ClientPrefs.data.antialiasing;
 		mouse.updateHitbox();
 		add(mouse);
-
-		/*var psychVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
-		psychVer.scrollFactor.set();
-		psychVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(psychVer);
-		var fnfVer:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
-		fnfVer.scrollFactor.set();
-		fnfVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(fnfVer);*/
 
 		#if ACHIEVEMENTS_ALLOWED
 		// Unlocks "Freaky on a Friday Night" achievement if it's a Friday and between 18:00 PM and 23:59 PM
@@ -273,6 +261,26 @@ class MainMenuState extends MusicBeatState
 			else
 			{
 				wasOverlaped3 = false;
+			}
+
+			if (randomChar == 'gf')
+			{
+				if (FlxG.mouse.overlaps(char))
+				{
+					if (FlxG.mouse.justPressed){
+						selectedSomethin = true;
+						char.loadGraphic(Paths.image('menu/gf2', 'vocaloid'));
+						FlxG.sound.play(Paths.returnSound('sounds/confirmMenu', 'vocaloid'));
+						new FlxTimer().start(1, function(time:FlxTimer)
+						{
+							Song.loadFromJson('girlfriends-song-hq-hard', 'girlfriends-song-hq');
+							PlayState.isStoryMode = false;
+							PlayState.storyDifficulty = 2;
+							LoadingState.prepareToSong();
+							MusicBeatState.switchState(new PlayState());
+						});
+					}
+				}
 			}
 
 			#if desktop
