@@ -11,7 +11,7 @@
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
-	"image": "characters/logoBumpin",
+	"image": "logoBumpin",
 	"position": [30, 0],
 	"healthicon": "invisible",
 	"flip_x": false,
