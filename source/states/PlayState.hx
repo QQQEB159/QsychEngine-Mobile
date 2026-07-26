@@ -56,6 +56,7 @@ import psychlua.HScript.HScriptInfos;
 import crowplexus.iris.Iris;
 import crowplexus.hscript.Expr.Error as IrisError;
 import crowplexus.hscript.Printer;
+import extensions.hscript.Sharables;
 #end
 
 import oecodes.OeTools;
@@ -3255,7 +3256,7 @@ class PlayState extends MusicBeatState
 			}
 
 		hscriptArray = null;
-		HScript.scriptShareables.clear();
+		HScript.scriptShareables = new Sharables();
 		#end
 		stagesFunc(function(stage:BaseStage) stage.destroy());
 
