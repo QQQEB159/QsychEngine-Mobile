@@ -86,6 +86,7 @@ class HScript extends IrisEx
 	#end
 
 	public var origin:String;
+	public static var scriptShareables:Sharables = new Sharables();
 	override public function new(?parent:Dynamic, ?file:String, ?varsToBring:Any = null, ?manualRun:Bool = false, ?sharables:Sharables)
 	{
 		if (file == null)
@@ -115,7 +116,11 @@ class HScript extends IrisEx
 		if (scriptName == null && parent != null)
 			scriptName = parent.scriptName;
 		#end
+		
+		if (sharables == null) sharables = scriptShareables;
+		
 		super(scriptThing, new IrisConfig(scriptName, false, false), sharables);
+		(cast interp : extensions.hscript.InterpEx).sharedFields = sharables;
 		(cast interp : extensions.hscript.InterpEx).parent = FlxG.state;
 		#if LUA_ALLOWED
 		parentLua = parent;
