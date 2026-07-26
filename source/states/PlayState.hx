@@ -3256,7 +3256,6 @@ class PlayState extends MusicBeatState
 
 		hscriptArray = null;
 		HScript.scriptShareables.clear();
-		HScript.scriptShareables = null;
 		#end
 		stagesFunc(function(stage:BaseStage) stage.destroy());
 
