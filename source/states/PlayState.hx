@@ -305,7 +305,6 @@ class PlayState extends MusicBeatState
 	var nfsTimer:FlxTimer;
 	
 	var ratingGraphic:FlxSprite;
-	var ratingNumGroup:FlxTypedGroup<FlxSprite>;
 	public var minCombos:Int = 3;
 	public var ratingPop:Float = (.785 / .7);
 	public var combosPop:Float = (.6 / .5);
@@ -512,9 +511,11 @@ class PlayState extends MusicBeatState
 		#end
 
 		uiGroup = new FlxSpriteGroup();
-		comboGroup = new FlxSpriteGroup();
+		ratingGraphicGroup = new FlxTypedGroup();
+		ratingNumGroup = new FlxTypedGroup();
 		noteGroup = new FlxTypedGroup<FlxBasic>();
-		add(comboGroup);
+		add(ratingGraphicGroup);
+		add(ratingNumGroup);
 		add(uiGroup);
 		add(noteGroup);
 
@@ -605,10 +606,7 @@ class PlayState extends MusicBeatState
 		
 		ratingGraphic = new FlxSprite();
 		ratingGraphic.alpha = 0;
-		comboGroup.add(ratingGraphic);
-		
-		ratingNumGroup = new FlxTypedGroup();
-		comboGroup.add(ratingNumGroup);
+		ratingGraphicGroup.add(ratingGraphic);
 
 		botplayTxt = new FlxText(400, healthBar.y - 90, FlxG.width - 800, OeTools.getJsonData("Main", "botplayTxt"), 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -2606,7 +2604,8 @@ class PlayState extends MusicBeatState
 	public var showRating:Bool = true;
 
 	// Stores Ratings and Combo Sprites in a group
-	public var comboGroup:FlxSpriteGroup;
+	var ratingGraphicGroup:FlxTypedGroup<FlxSprite>;
+	var ratingNumGroup:FlxTypedGroup<FlxSprite>;
 	// Stores HUD Objects in a Group
 	public var uiGroup:FlxSpriteGroup;
 	// Stores Note Objects in a Group
@@ -2629,13 +2628,24 @@ class PlayState extends MusicBeatState
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.data.ratingOffset);
 		vocals.volume = 1;
 
-		if (!ClientPrefs.data.comboStacking && comboGroup.members.length > 0)
+		if (!ClientPrefs.data.comboStacking && ratingGraphicGroup.members.length > 0)
 		{
-			for (spr in comboGroup)
+			for (spr in ratingGraphicGroup)
 			{
 				if(spr == null) continue;
 
-				comboGroup.remove(spr);
+				ratingGraphicGroup.remove(spr);
+				spr.destroy();
+			}
+		}
+		
+		if (!ClientPrefs.data.comboStacking && ratingNumGroup.members.length > 0)
+		{
+			for (spr in ratingNumGroup)
+			{
+				if(spr == null) continue;
+
+				ratingNumGroup.remove(spr);
 				spr.destroy();
 			}
 		}
@@ -2691,11 +2701,11 @@ class PlayState extends MusicBeatState
 			
 			FlxTween.cancelTweensOf(ratingGraphic, ['alpha']);
 			FlxTween.cancelTweensOf(ratingGraphic.scale);
-			FlxTween.tween(ratingGraphic.scale, {x: ratingScale, y: ratingScale}, 0.5, {ease: FlxEase.expoOut});
-			FlxTween.tween(ratingGraphic, {alpha: 0}, 0.5, {startDelay: Conductor.stepCrotchet * 0.01, ease: FlxEase.expoOut});
+			FlxTween.tween(ratingGraphic.scale, {x: ratingScale, y: ratingScale}, 0.5 / playbackRate, {ease: FlxEase.expoOut});
+			FlxTween.tween(ratingGraphic, {alpha: 0}, 0.5 / playbackRate, {startDelay: Conductor.stepCrochet * 0.01 / playbackRate, ease: FlxEase.expoOut});
 		}
 		
-		if (showRatingNum)
+		if (showComboNum)
 		{
 			ratingNumGroup.killMembers();
 			
@@ -2725,8 +2735,8 @@ class PlayState extends MusicBeatState
 				
 				FlxTween.cancelTweensOf(numScore, ['alpha']);
 				FlxTween.cancelTweensOf(numScore.scale);
-				FlxTween.tween(numScore.scale, {x: combosScale, y: combosScale}, 0.5, {ease: FlxEase.expoOut});
-				FlxTween.tween(numScore, {alpha: 0}, 0.5, {startDelay: Conductor.stepCrotchet * 0.01, ease: FlxEase.expoOut});
+				FlxTween.tween(numScore.scale, {x: combosScale, y: combosScale}, 0.5 / playbackRate, {ease: FlxEase.expoOut});
+				FlxTween.tween(numScore, {alpha: 0}, 0.5 / playbackRate, {startDelay: Conductor.stepCrochet * 0.01 / playbackRate, ease: FlxEase.expoOut});
 				
 				ratingNumGroup.add(numScore);
 			}
