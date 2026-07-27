@@ -304,7 +304,7 @@ class PlayState extends MusicBeatState
 	var maxNFS:Int = 0;
 	var nfsTimer:FlxTimer;
 	
-	var ratingGraphic:FlxSprite;
+	public var ratingGraphic:FlxSprite;
 	public var minCombos:Int = 3;
 	public var ratingPop:Float = (.785 / .7);
 	public var combosPop:Float = (.6 / .5);
@@ -619,7 +619,8 @@ class PlayState extends MusicBeatState
 
 		uiGroup.cameras = [camHUD];
 		noteGroup.cameras = [camHUD];
-		comboGroup.cameras = [camHUD];
+		ratingGraphicGroup.cameras = [camHUD];
+		ratingNumGroup.cameras = [camHUD];
 
 		scoreTxt.y -= 10;
 
@@ -2604,8 +2605,8 @@ class PlayState extends MusicBeatState
 	public var showRating:Bool = true;
 
 	// Stores Ratings and Combo Sprites in a group
-	var ratingGraphicGroup:FlxTypedGroup<FlxSprite>;
-	var ratingNumGroup:FlxTypedGroup<FlxSprite>;
+	public var ratingGraphicGroup:FlxTypedGroup<FlxSprite>;
+	public var ratingNumGroup:FlxTypedGroup<FlxSprite>;
 	// Stores HUD Objects in a Group
 	public var uiGroup:FlxSpriteGroup;
 	// Stores Note Objects in a Group
