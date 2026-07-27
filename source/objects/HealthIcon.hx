@@ -61,4 +61,12 @@ class HealthIcon extends FlxSprite
 	public function getCharacter():String {
 		return char;
 	}
+	
+	/**
+	 * Updates the current animation based on a value from 0 - 1.
+	 */
+	public inline function updateIconAnim(health:Float):Void
+	{
+		animation.frameIndex = health < 0.2 ? 1 : 0;
+	}
 }
