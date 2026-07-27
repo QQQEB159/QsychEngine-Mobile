@@ -511,13 +511,13 @@ class PlayState extends MusicBeatState
 		#end
 
 		uiGroup = new FlxSpriteGroup();
+		noteGroup = new FlxTypedGroup<FlxBasic>();
 		ratingGraphicGroup = new FlxTypedGroup();
 		ratingNumGroup = new FlxTypedGroup();
-		noteGroup = new FlxTypedGroup<FlxBasic>();
-		add(ratingGraphicGroup);
-		add(ratingNumGroup);
 		add(uiGroup);
 		add(noteGroup);
+		add(ratingGraphicGroup);
+		add(ratingNumGroup);
 
 		Conductor.songPosition = -Conductor.crochet * 5 + Conductor.offset;
 		/*var showTime:Bool = (ClientPrefs.data.timeBarType != 'Disabled');
@@ -2624,7 +2624,7 @@ class PlayState extends MusicBeatState
 			Paths.image(uiFolder + 'num' + i + uiPostfix);
 	}
 
-	private function popUpScore(note:Note = null):Void
+	function popUpScore(note:Note = null):Void
 	{
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.data.ratingOffset);
 		vocals.volume = 1;
@@ -2742,6 +2742,8 @@ class PlayState extends MusicBeatState
 				ratingNumGroup.add(numScore);
 			}
 		}
+		
+		callOnScripts('onPopUpScorePost', [note]);
 	}
 
 	public var strumsBlocked:Array<Bool> = [];
