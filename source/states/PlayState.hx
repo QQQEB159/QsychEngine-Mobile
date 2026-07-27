@@ -2917,13 +2917,25 @@ class PlayState extends MusicBeatState
 			switch(key)
 			{
 				case 0:
-					noteSplashHoldPurple.visible = false;
+					noteSplashHoldPurple.animation.finishCallback = function(name:String)
+					{
+					    if (name == 'holdCoverEnd') noteSplashHoldPurple.visible = false;
+					}
 				case 1:
-					noteSplashHoldBlue.visible = false;
+					noteSplashHoldBlue.animation.finishCallback = function(name:String)
+					{
+					    if (name == 'holdCoverEnd') noteSplashHoldBlue.visible = false;
+					}
 				case 2:
-					noteSplashHoldGreen.visible = false;
+					noteSplashHoldGreen.animation.finishCallback = function(name:String)
+					{
+					    if (name == 'holdCoverEnd') noteSplashHoldGreen.visible = false;
+					}
 				case 3:
-					noteSplashHoldRed.visible = false;
+					noteSplashHoldRed.animation.finishCallback = function(name:String)
+					{
+					    if (name == 'holdCoverEnd') noteSplashHoldRed.visible = false;
+					}
 			}
 		}
 		callOnScripts('onKeyRelease', [key]);
