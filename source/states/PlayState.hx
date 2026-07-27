@@ -1497,6 +1497,7 @@ class PlayState extends MusicBeatState
 				swagNote.animSuffix = isAlt ? "-alt" : "";
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = holdLength;
+				swagNote.isHoldNote = (swagNote.sustainLength > 0);
 				swagNote.noteType = noteType;
 	
 				swagNote.scrollFactor.set();
@@ -1515,6 +1516,8 @@ class PlayState extends MusicBeatState
 						sustainNote.mustPress = swagNote.mustPress;
 						sustainNote.gfNote = swagNote.gfNote;
 						sustainNote.noteType = swagNote.noteType;
+						sustainNote.isTailNote = true;
+						if (susNote + 1 == roundSus) sustainNote.isLastTailNote = true;
 						sustainNote.scrollFactor.set();
 						sustainNote.parent = swagNote;
 						unspawnNotes.push(sustainNote);
