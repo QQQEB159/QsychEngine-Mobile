@@ -39,6 +39,8 @@ import shaders.ErrorHandledShader;
 import video.FunkinVideoSprite;
 import video.VideoSprite;
 #end
+
+import objects.HoldNoteSplash;
 import objects.Note.EventNote;
 import objects.*;
 import states.stages.*;
@@ -311,6 +313,14 @@ class PlayState extends MusicBeatState
 	public var combosPop:Float = (.6 / .5);
 	public var ratingScale:Float = .7;
 	public var combosScale:Float = .5;
+	
+	public var noteSplashHoldPurple:HoldNoteSplash;
+	public var noteSplashHoldBlue:HoldNoteSplash;
+	public var noteSplashHoldGreen:HoldNoteSplash;
+	public var noteSplashHoldRed:HoldNoteSplash;
+	
+	public var holdCoverOffsets:Array<Float> = [20, -25];
+	public var holdCoverEndOffsets:Array<Float> = [0, 0];
 	
 	override public function create()
 	{
@@ -696,6 +706,42 @@ class PlayState extends MusicBeatState
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.000001; //cant make it invisible or it won't allow precaching
 
+		noteSplashHoldPurple = new HoldNoteSplash(0, 0, 0);
+		noteSplashHoldPurple.frames = Paths.getSparrowAtlas('HoldNoteEffect/noteHoldCovers');
+		noteSplashHoldPurple.animation.addByPrefix('holdCover', 'loop', 24, true);
+		noteSplashHoldPurple.animation.addByPrefix('holdCoverEnd', 'end', 24, false);
+		noteSplashHoldPurple.animation.play('holdCoverStart');
+		noteSplashHoldPurple.antialiasing = ClientPrefs.data.antialiasing;
+		noteSplashHoldPurple.visible = false;
+		noteGroup.add(noteSplashHoldPurple);
+
+		noteSplashHoldBlue = new HoldNoteSplash(0, 0, 1);
+		noteSplashHoldBlue.frames = Paths.getSparrowAtlas('HoldNoteEffect/noteHoldCovers');
+		noteSplashHoldBlue.animation.addByPrefix('holdCover', 'loop', 24, true);
+		noteSplashHoldBlue.animation.addByPrefix('holdCoverEnd', 'end', 24, false);
+		noteSplashHoldBlue.animation.play('holdCoverStart');
+		noteSplashHoldBlue.antialiasing = ClientPrefs.data.antialiasing;
+		noteSplashHoldBlue.visible = false;
+		noteGroup.add(noteSplashHoldBlue);
+
+		noteSplashHoldGreen = new HoldNoteSplash(0, 0, 2);
+		noteSplashHoldGreen.frames = Paths.getSparrowAtlas('HoldNoteEffect/noteHoldCovers');
+		noteSplashHoldGreen.animation.addByPrefix('holdCover', 'loop', 24, true);
+		noteSplashHoldGreen.animation.addByPrefix('holdCoverEnd', 'end', 24, false);
+		noteSplashHoldGreen.animation.play('holdCoverStart');
+		noteSplashHoldGreen.antialiasing = ClientPrefs.data.antialiasing;
+		noteSplashHoldGreen.visible = false;
+		noteGroup.add(noteSplashHoldGreen);
+
+		noteSplashHoldRed = new HoldNoteSplash(0, 0, 3);
+		noteSplashHoldRed.frames = Paths.getSparrowAtlas('HoldNoteEffect/noteHoldCovers');
+		noteSplashHoldRed.animation.addByPrefix('holdCover', 'loop', 24, true);
+		noteSplashHoldRed.animation.addByPrefix('holdCoverEnd', 'end', 24, false);
+		noteSplashHoldRed.animation.play('holdCoverStart');
+		noteSplashHoldRed.antialiasing = ClientPrefs.data.antialiasing;
+		noteSplashHoldRed.visible = false;
+		noteGroup.add(noteSplashHoldRed);
+		
 		super.create();
 		nfsTimer = new FlxTimer().start(1, function(tmr:FlxTimer) {
 			currentNFS = clickCount;
@@ -2863,6 +2909,19 @@ class PlayState extends MusicBeatState
 		{
 			spr.playAnim('static');
 			spr.resetAnim = 0;
+			
+			// make note splashes hold dissapear
+			switch(key)
+			{
+				case 0:
+					noteSplashHoldPurple.visible = false;
+				case 1:
+					noteSplashHoldBlue.visible = false;
+				case 2:
+					noteSplashHoldGreen.visible = false;
+				case 3:
+					noteSplashHoldRed.visible = false;
+			}
 		}
 		callOnScripts('onKeyRelease', [key]);
 	}
@@ -2987,6 +3046,11 @@ class PlayState extends MusicBeatState
 		var subtract:Float = pressMissDamage;
 		if(note != null) subtract = note.missHealth;
 
+		noteSplashHoldPurple.visible = false;
+		noteSplashHoldBlue.visible = false;
+		noteSplashHoldGreen.visible = false;
+		noteSplashHoldRed.visible = false;
+		
 		// GUITAR HERO SUSTAIN CHECK LOL!!!!
 		if (note != null && guitarHeroSustains && note.parent == null) {
 			if(note.tail.length > 0) {
@@ -3183,6 +3247,9 @@ class PlayState extends MusicBeatState
 				if(combo > 9999) combo = 9999;
 				popUpScore(note);
 			}
+			
+			if(!note.noteSplashData.disabled && note.isSustainNote) spawnNoteSplashHoldOnNote(note);
+			
 			var gainHealth:Bool = true; // prevent health gain, *if* sustains are treated as a singular note
 			//if (guitarHeroSustains && note.isSustainNote) gainHealth = false;
 			if (gainHealth) health += note.hitHealth * healthGain;
@@ -3232,6 +3299,85 @@ class PlayState extends MusicBeatState
 		splash.babyArrow = strum;
 		splash.spawnSplashNote(x, y, data, note);
 		grpNoteSplashes.add(splash);
+	}
+	
+	public function spawnNoteSplashHoldOnNote(note:Note) {
+		if(note != null) {
+			var strum:StrumNote = playerStrums.members[note.noteData];
+			if(strum != null)
+			{
+				trace('hold splasha active!');
+				var noteOffset:Array<Float> = [0, 0];
+			
+				switch(note.noteData)
+				{
+					case 0: 
+						noteSplashHoldPurple.animation.play('holdCover', true);
+
+						noteSplashHoldPurple.visible = true;
+						noteSplashHoldPurple.setPosition(strum.x + noteOffset[0], strum.y + noteOffset[1]);
+						noteSplashHoldPurple.offset.set(holdCoverOffsets[0], holdCoverOffsets[1]);
+					case 1: 
+						noteSplashHoldBlue.animation.play('holdCover', true);
+
+						noteSplashHoldBlue.visible = true;
+						noteSplashHoldBlue.setPosition(strum.x + noteOffset[0], strum.y + noteOffset[1]);
+						noteSplashHoldBlue.offset.set(holdCoverOffsets[0], holdCoverOffsets[1]);
+					case 2: 
+						noteSplashHoldGreen.animation.play('holdCover', true);
+
+						noteSplashHoldGreen.visible = true;
+						noteSplashHoldGreen.setPosition(strum.x + noteOffset[0], strum.y + noteOffset[1]);
+						noteSplashHoldGreen.offset.set(holdCoverOffsets[0], holdCoverOffsets[1]);
+					case 3: 
+						noteSplashHoldRed.animation.play('holdCover', true);
+
+						noteSplashHoldRed.visible = true;
+						noteSplashHoldRed.setPosition(strum.x + noteOffset[0], strum.y + noteOffset[1]);
+						noteSplashHoldRed.offset.set(holdCoverOffsets[0], holdCoverOffsets[1]);
+				}
+				
+				if(note.isLastTailNote)
+				{
+					trace('END NOTE!');
+					switch(note.noteData)
+					{
+						case 0: 
+							noteSplashHoldPurple.animation.play('holdCoverEnd', true); 
+							noteSplashHoldPurple.animation.finishCallback = function(name:String)
+							{
+								if(name == 'holdCoverEnd') noteSplashHoldPurple.visible = false;
+							}
+
+							noteSplashHoldPurple.offset.set(holdCoverEndOffsets[0], holdCoverEndOffsets[1]);
+						case 1: 
+							noteSplashHoldBlue.animation.play('holdCoverEnd', true); 
+							noteSplashHoldBlue.animation.finishCallback = function(name:String)
+							{
+								if(name == 'holdCoverEnd') noteSplashHoldBlue.visible = false;
+							}
+
+							noteSplashHoldBlue.offset.set(holdCoverEndOffsets[0], holdCoverEndOffsets[1]);
+						case 2: 
+							noteSplashHoldGreen.animation.play('holdCoverEnd', true);
+							noteSplashHoldGreen.animation.finishCallback = function(name:String)
+							{
+								if(name == 'holdCoverEnd') noteSplashHoldGreen.visible = false;
+							} 
+
+							noteSplashHoldGreen.offset.set(holdCoverEndOffsets[0], holdCoverEndOffsets[1]);
+						case 3: 
+							noteSplashHoldRed.animation.play('holdCoverEnd', true);
+							noteSplashHoldRed.animation.finishCallback = function(name:String)
+							{
+								if(name == 'holdCoverEnd') noteSplashHoldRed.visible = false;
+							} 
+
+							noteSplashHoldRed.offset.set(holdCoverEndOffsets[0], holdCoverEndOffsets[1]);
+					}
+				}
+			}
+		}
 	}
 
 	override function destroy() {
