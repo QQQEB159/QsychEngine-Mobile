@@ -119,7 +119,7 @@
 	"options_gameplay_safe_frames_tip":"更改你有多少帧可以提前或迟后敲击音符",
 	
 	"option_controlsAlpha": "按键的不透明度",
-    "option_controlsAlpha_tip": "设置按键的不透明度（注意不要设为0，否则会找不到按钮。",
+    "option_controlsAlpha_tip": "设置按键的不透明度（注意不要设为0，否则会找不到按钮。）",
     "option_screensaver": "允许手机屏保",
     "option_screensaver_tip": "打开后，手机将在无操作几秒后进入休眠。\n（具体时间取决于手机设置）",
     "option_hitboxType": "Hitbox样式",
