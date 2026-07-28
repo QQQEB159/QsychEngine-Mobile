@@ -116,5 +116,18 @@
 	"options_gameplay_sick_offset_tip":"Changes the amount of time you have\nfor hitting a 'Sick!' in milliseconds.",
 	"options_gameplay_good_offset_tip":"Changes the amount of time you have\nfor hitting a 'Good' in milliseconds.",
 	"options_gameplay_bad_offset_tip":"Changes the amount of time you have\nfor hitting a 'Bad' in milliseconds.",
-	"options_gameplay_safe_frames_tip":"Changes how many frames you have for\nhitting a note earlier or late."
+	"options_gameplay_safe_frames_tip":"Changes how many frames you have for\nhitting a note earlier or late.",
+	
+    "option_controlsAlpha": "Mobile Controls Opacity",
+    "option_controlsAlpha_tip": "Selects the opacity for the mobile buttons (careful not to put it at 0 and lose track of your buttons).",
+    "option_screensaver": "Allow Phone Screensaver",
+    "option_screensaver_tip": "If checked, the phone will sleep after going inactive for few seconds.\n(The time depends on your phone's options)",
+    "option_hitboxType": "Hitbox Design",
+    "option_hitboxType_tip": "Choose how your hitbox should look like.",
+    "option_hitboxPos": "Hitbox Position",
+    "option_hitboxPos_tip": "If checked, the hitbox will be put at the bottom of the screen, otherwise will stay at the top.",
+    "option_dynamicColors": "Dynamic Controls Color",
+    "option_dynamicColors_tip": "If checked, the mobile controls color will be set to the notes color in your settings.\n(have effect during gameplay only)",
+    "option_storageType": "Storage Type",
+    "option_storageType_tip": "Which folder Qsych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)"
 }

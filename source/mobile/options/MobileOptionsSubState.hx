@@ -4,6 +4,8 @@ import flixel.input.keyboard.FlxKey;
 import options.BaseOptionsMenu;
 import options.Option;
 
+import oecodes.OeTools;
+
 class MobileOptionsSubState extends BaseOptionsMenu
 {
 	#if android
@@ -22,8 +24,8 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		title = 'Mobile Options';
 		rpcTitle = 'Mobile Options Menu'; // for Discord Rich Presence, fuck it
 
-		option = new Option('Mobile Controls Opacity',
-			'Selects the opacity for the mobile buttons (careful not to put it at 0 and lose track of your buttons).', 'controlsAlpha', PERCENT);
+		option = new Option(OeTools.getJsonData('Main', 'option_controlsAlpha'),
+			OeTools.getJsonData('Main', 'option_controlsAlpha_tip'), PERCENT);
 		option.scrollSpeed = 1;
 		option.minValue = 0.001;
 		option.maxValue = 1;
@@ -37,29 +39,29 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		addOption(option);
 
 		#if mobile
-		option = new Option('Allow Phone Screensaver',
-			'If checked, the phone will sleep after going inactive for few seconds.\n(The time depends on your phone\'s options)', 'screensaver', BOOL);
+		option = new Option(OeTools.getJsonData('Main', 'option_screensaver'),
+			OeTools.getJsonData('Main', 'option_screensaver_tip'), 'screensaver', BOOL);
 		option.onChange = () -> lime.system.System.allowScreenTimeout = curOption.getValue();
 		addOption(option);
 		#end
 
 		if (MobileData.mode == 3)
 		{
-			option = new Option('Hitbox Design', 'Choose how your hitbox should look like.', 'hitboxType', STRING, hintOptions);
+			option = new Option(OeTools.getJsonData('Main', 'option_hitboxType'), OeTools.getJsonData('Main', 'option_hitboxType_tip'), 'hitboxType', STRING, hintOptions);
 			addOption(option);
 
-			option = new Option('Hitbox Position', 'If checked, the hitbox will be put at the bottom of the screen, otherwise will stay at the top.',
+			/* option = new Option(OeTools.getJsonData('Main', 'option_hitboxPos'), OeTools.getJsonData('Main', 'option_hitboxPos_tip'),
 				'hitboxPos', BOOL);
-			addOption(option);
+			addOption(option); */
 		}
 
-		option = new Option('Dynamic Controls Color',
-			'If checked, the mobile controls color will be set to the notes color in your settings.\n(have effect during gameplay only)', 'dynamicColors',
+		/* option = new Option(OeTools.getJsonData('Main', 'option_dynamicColors'),
+			OeTools.getJsonData('Main', 'option_dynamicColors_tip'), 'dynamicColors',
 			BOOL);
-		addOption(option);
+		addOption(option); */
 
 		#if android
-		option = new Option('Storage Type', 'Which folder Qsych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)', 'storageType', STRING,
+		option = new Option(OeTools.getJsonData('Main', 'option_storageType'), OeTools.getJsonData('Main', 'option_storageType_tip'), 'storageType', STRING,
 			storageTypes);
 		addOption(option);
 		#end

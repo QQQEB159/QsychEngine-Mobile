@@ -116,5 +116,18 @@
 	"options_gameplay_sick_offset_tip":"更改你获得 Sick! 评价的判定区间\n更小的值意味着更严格的判定",
 	"options_gameplay_good_offset_tip":"更改你获得 Good 评价的判定区间\n更小的值意味着更严格的判定",
 	"options_gameplay_bad_offset_tip":"更改你获得 Bad 评价的判定区间\n更小的值意味着更严格的判定",
-	"options_gameplay_safe_frames_tip":"更改你有多少帧可以提前或迟后敲击音符"
+	"options_gameplay_safe_frames_tip":"更改你有多少帧可以提前或迟后敲击音符",
+	
+	"option_controlsAlpha": "按键的不透明度",
+    "option_controlsAlpha_tip": "设置按键的不透明度（注意不要设为0，否则会找不到按钮。",
+    "option_screensaver": "允许手机屏保",
+    "option_screensaver_tip": "打开后，手机将在无操作几秒后进入休眠。\n（具体时间取决于手机设置）",
+    "option_hitboxType": "Hitbox样式",
+    "option_hitboxType_tip": "选择Hitbox的外观。",
+    "option_hitboxPos": "Hitbox位置",
+    "option_hitboxPos_tip": "勾选后，Hitbox将位于屏幕底部，否则位于顶部。",
+    "option_dynamicColors": "动态控制颜色",
+    "option_dynamicColors_tip": "勾选后，按键颜色将与设置中的音符颜色一致。\n（仅在游戏过程中生效）",
+    "option_storageType": "存储类型",
+    "option_storageType_tip": "选择 Qsych 引擎应使用的文件夹。\n（更改此选项将停用旧文件夹！！）"
 }
