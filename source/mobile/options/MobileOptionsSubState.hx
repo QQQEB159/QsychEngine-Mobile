@@ -25,7 +25,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		rpcTitle = 'Mobile Options Menu'; // for Discord Rich Presence, fuck it
 
 		option = new Option(OeTools.getJsonData('Main', 'option_controlsAlpha'),
-			OeTools.getJsonData('Main', 'option_controlsAlpha_tip'), PERCENT);
+			OeTools.getJsonData('Main', 'option_controlsAlpha_tip'), 'controlsAlpha', PERCENT);
 		option.scrollSpeed = 1;
 		option.minValue = 0.001;
 		option.maxValue = 1;
