@@ -522,7 +522,7 @@ class EditorPlayState extends MusicBeatSubstate
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.data.ratingOffset);
 		vocals.volume = 1;
 
-		if (!ClientPrefs.data.comboStacking && comboGroup.members.length > 0)
+		/*if (!ClientPrefs.data.comboStacking && comboGroup.members.length > 0)
 		{
 			for (spr in comboGroup)
 			{
@@ -531,7 +531,7 @@ class EditorPlayState extends MusicBeatSubstate
 				comboGroup.remove(spr);
 				spr.destroy();
 			}
-		}
+		}*/
 
 		var placement:Float = FlxG.width * 0.35;
 		var rating:FlxSprite = new FlxSprite();

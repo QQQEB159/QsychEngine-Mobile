@@ -147,11 +147,11 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		addOption(option);
 		#end
 
-		var option:Option = new Option(OeTools.getJsonData('Main', 'option_comboStacking'),
+		/* var option:Option = new Option(OeTools.getJsonData('Main', 'option_comboStacking'),
 			OeTools.getJsonData('Main', 'options_ui_combo_stacking_tip'),
 			'comboStacking',
 			BOOL);
-		addOption(option);
+		addOption(option); */
 
 		super();
 		add(notes);

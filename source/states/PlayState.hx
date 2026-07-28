@@ -823,8 +823,15 @@ class PlayState extends MusicBeatState
 	#end
 
 	public function reloadHealthBarColors() {
-		healthBar.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
-			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		if (!healthBar.leftToRight) healthBar.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]), FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		else healthBar.setColors(FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]), FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
+	}
+	
+	public function flipBar()
+	{
+		healthBar.leftToRight = !healthBar.leftToRight;
+		iconP1.flipX = !iconP1.flipX;
+		iconP2.flipX = !iconP2.flipX;
 	}
 
 	public function addCharacterToList(newCharacter:String, type:Int) {
@@ -2012,8 +2019,16 @@ class PlayState extends MusicBeatState
 	public dynamic function updateIconsPosition()
 	{
 		var iconOffset:Int = 26;
-		iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-		iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+		if (!healthBar.leftToRight)
+		{
+    		iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+    		iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+        }
+        else
+        {
+			iconP1.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+			iconP2.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+        }
 	}
 	
 	public dynamic function updateIconsAnimation()
@@ -2686,28 +2701,6 @@ class PlayState extends MusicBeatState
 	{
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.data.ratingOffset);
 		vocals.volume = 1;
-
-		if (!ClientPrefs.data.comboStacking && ratingGraphicGroup.members.length > 0)
-		{
-			for (spr in ratingGraphicGroup)
-			{
-				if(spr == null) continue;
-
-				ratingGraphicGroup.remove(spr);
-				spr.destroy();
-			}
-		}
-		
-		if (!ClientPrefs.data.comboStacking && ratingNumGroup.members.length > 0)
-		{
-			for (spr in ratingNumGroup)
-			{
-				if(spr == null) continue;
-
-				ratingNumGroup.remove(spr);
-				spr.destroy();
-			}
-		}
 
 		var score:Int = 350;
 
