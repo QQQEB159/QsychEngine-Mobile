@@ -1,6 +1,6 @@
 package;
 
-import debug.FPSCounter;
+import backend.DebugDisplay;
 
 import flixel.graphics.FlxGraphic;
 import flixel.FlxGame;
@@ -53,7 +53,7 @@ class Main extends Sprite
 		startFullscreen: false // if the game should start at fullscreen mode
 	};
 
-	public static var fpsVar:FPSCounter;
+	public static var fpsVar:DebugDisplay;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -160,7 +160,7 @@ class Main extends Sprite
 		@:privateAccess _game._customSoundTray = extensions.flixel.FlxSoundTrayEx;
 		addChild(_game);
 
-		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
+		fpsVar = new DebugDisplay(10, 3, 0xFFFFFF);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
