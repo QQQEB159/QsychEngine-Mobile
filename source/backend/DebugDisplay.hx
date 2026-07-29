@@ -27,7 +27,7 @@ class DebugDisplay extends Sprite
 		if (FlxG.game?.parent == null || instance != null) return;
 		
 		instance = new DebugDisplay(10, 3, 0xFFFFFF);
-		instance.visible = true;
+		instance.visible = ClientPrefs.data.showFPS;
 		
 		FlxG.game.parent.addChild(instance);
 	}
