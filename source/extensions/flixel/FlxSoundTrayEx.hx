@@ -207,7 +207,7 @@ class FlxSoundTrayEx extends FlxSoundTray
 	{
 		scaleX = _defaultScale;
 		scaleY = _defaultScale;
-		x = (0.5 * (Lib.current.stage.stageWidth - _width * _defaultScale) - FlxG.game.x);
+		x = (0.5 * (Lib.current.stage.stageWidth - _minWidth * _defaultScale) - FlxG.game.x);
 	}
 
 	public function destroy():Void
