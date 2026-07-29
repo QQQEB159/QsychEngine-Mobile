@@ -79,7 +79,7 @@
 	<assets path="assets/vocaloid"         exclude="*.mp3" unless="web"/>
 
 	<section if="MODS_ALLOWED">
-		<assets path='mods' embed='false' />
+		<!-- <assets path='mods' embed='false' /> -->
 	</section>
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 
@@ -91,8 +91,8 @@
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
-	<haxelib name="flixel" version="6.0.0"/>
-	<haxelib name="flixel-addons" version="3.3.2"/>
+	<haxelib name="flixel" />
+	<haxelib name="flixel-addons" />
 	<haxelib name="tjson" version="1.4.0"/>
 
 	<!--Psych stuff needed-->
@@ -150,6 +150,9 @@
 
 	<!-- Allow Access to Engine Files in MOBILE -->
 	<haxedef name="SHARE_MOBILE_FILES" if="mobile" />
+	<haxedef name="lime_use_old_deltatime" />
+	<haxedef name="openfl_dpi_aware" />
+	<haxedef name="openfl_pool_events" />
 
 	<!--Macro fixes-->
 	<haxeflag name="--macro" value="allowPackage('flash')" />

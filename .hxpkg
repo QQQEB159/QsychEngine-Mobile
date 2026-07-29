@@ -3,13 +3,15 @@
         "profile": "default",
         "pkgs": [
             {
-                "name": "flixel",
-                "version": "6.0.0"
-            },
-            {
-                "name": "flixel-addons",
-                "version": "3.3.2"
-            },
+				"name": "flixel",
+				"link": "https://github.com/HaxeFlixel/flixel",
+                "branch": "1ffd25bfa31c835ab3d2eba8cd6141ba481e5955"
+			},
+			{
+				"name": "flixel-addons",
+				"link": "https://github.com/HaxeFlixel/flixel-addons",
+				"branch": "e7350a9af0b40681bde04403c3b08d18d1a18fc4"
+			},
             {
                 "name": "flixel-tools",
                 "version": "1.5.1"
@@ -32,7 +34,7 @@
             {
                 "name": "hxcpp",
                 "link": "https://github.com/ShadowEngineTeam/hxcpp",
-                "branch": "c4a5d559af9c962fd7ef29351fa6e479e3479f86"
+                "branch": "main"
             },
             {
                 "name": "hxvlc",
@@ -40,12 +42,12 @@
             },
             {
                 "name": "lime",
-                "link": "https://github.com/QQQEB159/lime-8.1.2",
+                "link": "https://github.com/QQQEB159/lime-8.2.2",
                 "branch": "main"
             },
             {
                 "name": "openfl",
-                "version": "9.3.3"
+                "version": "9.5.0"
             },
             {
                 "name": "hxdiscord_rpc",
