@@ -7,6 +7,8 @@ import objects.Alphabet;
 
 import oecodes.OeTools;
 
+import backend.DebugDisplay;
+
 class VisualsSettingsSubState extends BaseOptionsMenu
 {
 	var noteOptionID:Int = -1;
@@ -282,7 +284,6 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 
 	function onChangeFPSCounter()
 	{
-		if(Main.fpsVar != null)
-			Main.fpsVar.visible = ClientPrefs.data.showFPS;
+		if (DebugDisplay.instance != null) DebugDisplay.instance.visible = ClientPrefs.data.showFPS;
 	}
 }

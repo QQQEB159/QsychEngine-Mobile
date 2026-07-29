@@ -53,8 +53,6 @@ class Main extends Sprite
 		startFullscreen: false // if the game should start at fullscreen mode
 	};
 
-	public static var fpsVar:DebugDisplay;
-
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
 	public static function main():Void
@@ -160,13 +158,7 @@ class Main extends Sprite
 		@:privateAccess _game._customSoundTray = extensions.flixel.FlxSoundTrayEx;
 		addChild(_game);
 
-		fpsVar = new DebugDisplay(10, 3, 0xFFFFFF);
-		addChild(fpsVar);
-		Lib.current.stage.align = "tl";
-		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		if(fpsVar != null) {
-			fpsVar.visible = ClientPrefs.data.showFPS;
-		}
+	    DebugDisplay.init();
 
 		#if (linux || mac) // fix the app icon not showing up on the Linux Panel / Mac Dock
 		var icon = Image.fromFile("icon.png");
@@ -191,25 +183,43 @@ class Main extends Sprite
 		LimeSystem.allowScreenTimeout = ClientPrefs.data.screensaver;
 		#end
 
-		// shader coords fix
-		FlxG.signals.gameResized.add(function (w, h) {
-		     if (fpsVar != null) fpsVar.positionFPS(10, 3, Math.min(w / FlxG.width, h / FlxG.height));
-		     
-		     if (FlxG.cameras != null) {
-			   for (cam in FlxG.cameras.list) {
-				if (cam != null && cam.filters != null)
-					resetSpriteCache(cam.flashSprite);
-			   }
+		FlxG.signals.gameResized.add(onResize);
+    }
+    
+    @:access(backend.DebugDisplay)
+	@:access(flixel.FlxCamera)
+	static function onResize(w:Int, h:Int)
+	{
+		final scale:Float = Math.max(1, Math.min(w / FlxG.width, h / FlxG.height));
+		
+		if (DebugDisplay.instance != null) 
+		{
+		    #if mobile
+		    DebugDisplay.instance.positionFPS(10, 3, Math.min(w / FlxG.width, h / FlxG.height));
+		    #end
+		}
+		
+		if (FlxG.cameras != null)
+		{
+			for (i in FlxG.cameras.list)
+			{
+				if (i != null && i.filters != null) resetSpriteCache(i.flashSprite);
 			}
-
-			if (FlxG.game != null)
+		}
+		
+		if (FlxG.game != null)
+		{
 			resetSpriteCache(FlxG.game);
-		});
+		}
 	}
-
-	static function resetSpriteCache(sprite:Sprite):Void {
-		@:privateAccess {
-		        sprite.__cacheBitmap = null;
+	
+	@:nullSafety(Off)
+	public static function resetSpriteCache(sprite:Sprite):Void
+	{
+		if (sprite == null) return;
+		@:privateAccess
+		{
+			sprite.__cacheBitmap = null;
 			sprite.__cacheBitmapData = null;
 		}
 	}
