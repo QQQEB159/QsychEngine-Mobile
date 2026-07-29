@@ -6,6 +6,7 @@ import flixel.FlxG;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import openfl.system.System;
+import openfl.Assets;
 import openfl.display.Sprite;
 
 /**
