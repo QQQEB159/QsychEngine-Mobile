@@ -1,7 +1,9 @@
 package options;
 
 import haxe.Json;
+
 import oecodes.OeTools;
+
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 
@@ -17,6 +19,7 @@ class LanguagesState extends MusicBeatState
 		['en_us', 'en_us', 'mc.ttf', 'English (US)', '0xFF00FFFF']
 	];
 	public static var jsonData:Dynamic;
+	
 	override public function create()
 	{
 		super.create();
@@ -60,72 +63,90 @@ class LanguagesState extends MusicBeatState
 		
 		addTouchPad('LEFT_RIGHT', 'A_B');
 	}
+	
     override public function update(time:Float)
     {
         super.update(time);
+        
         if (controls.BACK)
 		{
 			MusicBeatState.switchState(new options.OptionsState());
 		}
+		
 		if (controls.UI_LEFT_P || FlxG.mouse.wheel >= 1)
 		{
-			if (languageList != null){
-				if (curLang > 0){
+			if (languageList != null)
+			{
+				if (curLang > 0)
+				{
 					FlxG.sound.play(Paths.returnSound('sounds/scrollMenu', 'vocaloid'));
 					curLang -= 1;
-				}else{
+				}
+				else
+				{
 					FlxG.sound.play(Paths.returnSound('sounds/scrollMenu', 'vocaloid'));
 					curLang = languageList.length-1;
 				}
 			}
+            
             langImage.loadGraphic(Paths.getPath('data/languages/' + languageList[curLang][1] + '/icon.png', IMAGE, 'shared', false));
             langImage.setGraphicSize(300, 200);
             langImage.updateHitbox();
             langImage.screenCenter();
 			langText.text = languageList[curLang][3];
 			langText.screenCenter(X);
+			
 			var newColor:FlxColor = CoolUtil.colorFromString(languageList[curLang][4]);
-			if(newColor != intendedColor)
+			if (newColor != intendedColor)
 			{
 				intendedColor = newColor;
 				FlxTween.cancelTweensOf(bg);
 				FlxTween.color(bg, 0.2, bg.color, intendedColor);
 			}
 		}
+		
         if (controls.UI_RIGHT_P || FlxG.mouse.wheel <= -1)
 		{
-			if (languageList != null){
-				if (curLang < languageList.length-1){
+			if (languageList != null)
+			{
+				if (curLang < languageList.length-1)
+				{
 					FlxG.sound.play(Paths.returnSound('sounds/scrollMenu', 'vocaloid'));
 					curLang += 1;
-				}else{
+				}
+				else
+				{
 					FlxG.sound.play(Paths.returnSound('sounds/scrollMenu', 'vocaloid'));
 					curLang = 0;
 				}
 			}
+            
             langImage.loadGraphic(Paths.getPath('data/languages/' + languageList[curLang][1] + '/icon.png', IMAGE, 'shared', false));
             langImage.setGraphicSize(300, 200);
             langImage.updateHitbox();
             langImage.screenCenter();
 			langText.text = languageList[curLang][3];
 			langText.screenCenter(X);
+			
 			var newColor:FlxColor = CoolUtil.colorFromString(languageList[curLang][4]);
-			if(newColor != intendedColor)
+			if (newColor != intendedColor)
 			{
 				intendedColor = newColor;
 				FlxTween.cancelTweensOf(bg);
 				FlxTween.color(bg, 0.2, bg.color, intendedColor);
 			}
 		}
+		
         if (controls.ACCEPT)
         {
             ClientPrefs.data.language = languageList[curLang][0];
             MusicBeatState.switchState(new options.OptionsState());
         }
     }
+    
 	public static function loadLanguage()
 	{
-		if(FileSystem.exists('assets/shared/data/languages/languageList.json'))
+		if (FileSystem.exists('assets/shared/data/languages/languageList.json'))
 		{
 			jsonData = Json.parse(File.getContent('assets/shared/data/languages/languageList.json'));
 			languageList = [];
@@ -142,9 +163,11 @@ class LanguagesState extends MusicBeatState
 			}
 		}
 	}
+    
     function checkLanguagesNum()
 	{
 		var returnData:Int = 0;
+		
 		for (i in 0...languageList.length)
 		{
 			if (ClientPrefs.data.language == languageList[i][1])
